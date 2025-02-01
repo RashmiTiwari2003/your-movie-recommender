@@ -36,7 +36,7 @@ const MovieCard = ({ movieTitle }: MovieCardProps) => {
         const fetchPosterData = async () => {
             try {
                 if (movieData) {
-                    const response = await fetch(`http://www.omdbapi.com/?t=${movieData.title}&apikey=${APIKEY}`)
+                    const response = await fetch(`https://www.omdbapi.com/?t=${movieData.title}&apikey=${APIKEY}`)
                     const posterData = await response.json();
                     setPoster(posterData.Poster)
                 }

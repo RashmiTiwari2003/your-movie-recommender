@@ -11,18 +11,17 @@ const CurrentMovie = () => {
   const { movie, setMovie } = useMovieStore();
   const [movieSearch, setMovieSearch] = useState<string>("")
   const [filteredMovies, setFilteredMovies] = useState<{ id: number; original_title: string }[]>([]);
-  // const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [genres, setGenres] = useState<string[]>([]);
 
   const [menuOpen, setMenuOpen] = useState<boolean>(window.innerWidth >= 768);
 
   useEffect(() => {
     const handleResize = () => {
-      setMenuOpen(window.innerWidth >= 768); // true for md+, false for < md
+      setMenuOpen(window.innerWidth >= 768);
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Set initial state
+    handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -59,7 +58,7 @@ const CurrentMovie = () => {
     const fetchPosterData = async () => {
       try {
         if (movie) {
-          const response = await fetch(`http://www.omdbapi.com/?t=${movie.title}&apikey=${APIKEY}`)
+          const response = await fetch(`https://www.omdbapi.com/?t=${movie.title}&apikey=${APIKEY}`)
           const posterData = await response.json();
           setPoster(posterData.Poster)
         }
