@@ -24,7 +24,7 @@ const CurrentMovie = () => {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [movie]);
 
   useEffect(() => {
     const fetchMovieData = async () => {
@@ -129,6 +129,9 @@ const CurrentMovie = () => {
 
       const randomIndex = Math.floor(Math.random() * filteredMovies.length);
       setMovie(filteredMovies[randomIndex]);
+      setMenuOpen(!menuOpen);
+      setMovieSearch('');
+      setFilteredMovies([])
     } catch (error) {
       console.error("Error fetching movie data:", error);
     }
@@ -155,12 +158,12 @@ const CurrentMovie = () => {
           MOVIE RECOMMENDER
           <Clapperboard />
         </div>
-        <div className="pb-5">
+        <div className="relative pb-5">
           <input type="text" value={movieSearch} onChange={(e) => handleSearch(e.target.value)} placeholder="Search..." className="bg-white px-3 rounded-md w-full h-9 text-black" />
           <div className='w-full'>
             {
               filteredMovies.length > 0 && (
-                <div className="z-10 absolute bg-black/80 px-5 w-full md:w-3/4">
+                <div className="top-full right-0 left-0 z-5 absolute bg-black/80 px-5 max-w-full">
                   {
                     filteredMovies.map((elem) => (
                       <div onClick={() => showMovie(elem.original_title)} className="border-white py-4 border-b-1 last:border-b-0 h-16 text-white hover:cursor-pointer" key={elem.id}>
@@ -263,21 +266,6 @@ const CurrentMovie = () => {
         </div>
       </div>
     </div>
-    // <div className="flex flex-col w-screen text-black">
-    //   <div className="flex flex-wrap">
-    //     {movie?.keywords.map((elem, ind) => (
-    //       <div key={ind} className="flex">
-    //         {elem.name + ", "}
-    //       </div>
-    //     ))}
-    //   </div>
-    //   <div>
-    //     {movie?.popularity}
-    //   </div>
-    //   <div>
-    //     {movie?.vote_count}
-    //   </div>
-    // </div>
   )
 }
 
